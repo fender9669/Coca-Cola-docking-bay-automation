@@ -1,7 +1,20 @@
 #include <Arduino.h>
 #include "interrupt.h"
-#include "virtualTimers.h"
 
+/* =================================================
+*  Static variables definition
+*  ================================================= */
+static t_int32u s_frontendTimeVariable = 0;
+static t_int32u s_frontendTimeVariableAddress = 0x0;
+
+/* =================================================
+*  Static functions definition
+*  ================================================= */
+static void changeFrontendTime(p_newTime);
+
+/* =================================================
+*  Public functions implementation
+*  ================================================= */
 t_error interruptInitialize(t_int32u p_interrupt, void *p_interruptFunctionHandler) {
     t_error l_error = E_NOK;
 
@@ -21,5 +34,33 @@ void lineSensorInterruptCallbackIrq(void) {
 }
 
 void switchInputInterruptHandlerCallbackIrq(void) {
+    t_int32u l_switchPort = 0;
 
+    switch(l_switchPort) {
+    case C_SWITCH_INPUT_1:
+        changeFrontendTime(C_SWITCH_INPUT_TIME_10_S);
+        break;
+    case C_SWITCH_INPUT_2:
+        changeFrontendTime(C_SWITCH_INPUT_TIME_20_S);
+        break;
+    case C_SWITCH_INPUT_3:
+        changeFrontendTime(C_SWITCH_INPUT_TIME_30_S);
+        break;
+    
+    default:
+        break;
+    }
+}
+
+void passTimeVariableToBackend(t_int8u *p_timeVariable) {
+    s_frontendTimeVariable = p_timeVariable;
+    s_frontendTimeVariableAddress = &p_timeVariable;
+}
+
+/* =================================================
+*  Static functions implementation
+*  ================================================= */
+
+static void changeFrontendTime(p_newTime) {
+    *s_frontendTimeVariableAddress = p_newTime;
 }
