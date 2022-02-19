@@ -3,6 +3,7 @@
 
 #include "generalTypes.h"
 #include "virtualTimers.h"
+#include "actuatorCommands.h"
 
 /* =================================================
 *  Define interrupt constants
@@ -22,7 +23,6 @@
 /* =================================================
 *  Define public interrupt function prototypes
 *  ================================================= */
-
 t_error interruptInitialize(t_int32u p_interrupt, void *p_interruptFunctionHandler);
 
 void lineSensorInterruptCallbackIrq(void);

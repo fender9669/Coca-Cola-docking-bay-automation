@@ -1,7 +1,8 @@
 #include "virtualTimers.h"
 
-
-
+/* =================================================
+*  Public functions implementation
+*  ================================================= */
 t_error virtualTimerInit(t_virtualTimer p_virtualTimer, t_int32u p_waitTime) {
     t_error l_error = E_NOK;
 

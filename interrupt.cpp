@@ -29,8 +29,14 @@ t_error interruptInitialize(t_int32u p_interrupt, void *p_interruptFunctionHandl
 }
 
 void lineSensorInterruptCallbackIrq(void) {
-    t_virtualTimer l_lineSensorVirtualTimer = getVirtualTimer(C_LINE_SENSOR_VIRTUAL_TIMER);
+    t_virtualTimer    l_lineSensorVirtualTimer = getVirtualTimer(C_LINE_SENSOR_VIRTUAL_TIMER);
+    getActuatorObject l_driversObject = getDriversObject();
+
+    /* Reset the timer */
     virtualTimerInit(l_lineSensorVirtualTimer);
+
+    /* Send an open command to be sure that the gate stays open */
+    l_driversObject.openGate();
 }
 
 void switchInputInterruptHandlerCallbackIrq(void) {
@@ -60,7 +66,6 @@ void passTimeVariableToBackend(t_int8u *p_timeVariable) {
 /* =================================================
 *  Static functions implementation
 *  ================================================= */
-
 static void changeFrontendTime(p_newTime) {
     *s_frontendTimeVariableAddress = p_newTime;
 }
