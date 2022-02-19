@@ -1,10 +1,14 @@
 #ifndef GENERAL_TYPES_H
 #define GENERAL_TYPES_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <cstddef>
+
 /* =================================================
 *  Define variable types
 *  ================================================= */
-#define C_NULL        (null)
+#define C_NULL        (NULL)
 #define C_TRUE        (true)
 #define C_FALSE       (false)
 
